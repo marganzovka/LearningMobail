@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="TextViewVariantStyle" parent="TextAppearance.AppCompat">
+        <item name="fontFamily">@font/rubik</item>
+        <item name="android:textColor">@color/textVariant</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginStart">8dp</item>
+    </style>
+
+    <style name="NumberVariantStyle" parent="TextAppearance.AppCompat">
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="fontFamily">@font/nunito_bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/textVariant</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+</resources>

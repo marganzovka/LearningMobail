@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <ImageButton
+        android:id="@+id/ibClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/close_image_button"
+        android:src="@drawable/ic_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/tvQuestionWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="33dp"
+        android:layout_marginTop="84dp"
+        android:fontFamily="@font/nunito_bold"
+        android:paddingHorizontal="43dp"
+        android:textColor="@color/title_name"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ibClose"
+        android:text="Galaxy"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="33dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuestionWord"
+        tools:layout_editor_absoluteX="24dp"
+        android:layout_marginTop="80dp">
+
+        <LinearLayout
+            android:id="@+id/layoutAnswer1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/shape_raunded_container"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvVariantNumber1"
+                style="@style/NumberVariantStyle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_rounded_variants"
+                android:text="1" />
+
+            <TextView
+                android:id="@+id/tvVariantValue1"
+                style="@style/TextViewVariantStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Сломать" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAnswer2"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/shape_raunded_container"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvVariantNumber2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                style="@style/NumberVariantStyle"
+                android:background="@drawable/shape_rounded_variants"
+                android:text="2" />
+
+            <TextView
+                android:id="@+id/tvVariantValue2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextViewVariantStyle"
+                android:text="Сон"
+               />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layoutAnswer3"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/shape_raunded_container"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvVariantNumber3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                style="@style/NumberVariantStyle"
+                android:text="3"
+                android:background="@drawable/shape_rounded_variants"/>
+
+            <TextView
+                android:id="@+id/tvVariantValue3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextViewVariantStyle"
+                android:text="Галактика" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/layoutAnswer4"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/shape_raunded_container"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvVariantNumber4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                style="@style/NumberVariantStyle"
+                android:background="@drawable/shape_rounded_variants"
+                android:text="4" />
+
+            <TextView
+                android:id="@+id/tvVariantValue4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextViewVariantStyle"
+                android:text="Утюг" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.widget.Button
+        android:id="@+id/buttonSkip"
+        android:layout_width="310dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/shape_button_footer"
+        android:backgroundTint="#2574FF"
+        android:fontFamily="@font/nunito_bold"
+        android:text="@string/button_skip"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/resultLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/green"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/ivResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/ic_correct"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"
+            android:contentDescription="@string/correct_answer_icon"/>
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:fontFamily="@font/rubik"
+            android:text="@string/text_correct_answer"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivResult"
+            app:layout_constraintStart_toEndOf="@+id/ivResult"
+            app:layout_constraintTop_toTopOf="@+id/ivResult" />
+
+        <android.widget.Button
+            android:id="@+id/buttonContinue"
+            android:layout_width="310dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/shape_button_footer"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/nunito_bold"
+            android:text="@string/button_continue"
+            android:textColor="@color/green"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvResult" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

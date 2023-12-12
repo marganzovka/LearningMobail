@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="button_skip">SKIP</string>
+    <string name="text_correct_answer">Correct!</string>
+    <string name="button_continue">CONTINUE</string>
+    <string name="close_image_button">close image button</string>
+    <string name="correct_answer_icon">correct answer icon</string>
+    <string name="wrong_answer">Wrong!</string>
+    <string name="retryButton">RETRY</string>
+</resources>
