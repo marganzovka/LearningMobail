@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.example.myapplication.databinding.ActivityMainBinding
-import java.lang.Math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,12 +15,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val markAnswer: MarkAnswer = MarkAnswer(this@MainActivity)
-        val learnWordDb: LearnWordDb = LearnWordDb(this@MainActivity, "app", null, 1)
+        val learnWordDbHelper: LearnWordDbHelper = LearnWordDbHelper(this@MainActivity, "app", null, 1)
 
-        learnWordDb.AddWord("word", "Слово")
-        if (learnWordDb.ChangeIsUsed(1)){
-            println("Change OK")
-        } else println("Change Error")
+        learnWordDbHelper.AddWords()
+        val count = learnWordDbHelper.getWordCount()
+        println("$count !!!!!!!!!!!!!!!")
 
         binding.layoutAnswer3.setOnClickListener{
 //            if(binding.wrongLayout.isVisible){
