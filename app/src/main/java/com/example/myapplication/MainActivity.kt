@@ -16,7 +16,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val markAnswer: MarkAnswer = MarkAnswer(this@MainActivity)
+        val learnWordDb: LearnWordDb = LearnWordDb(this@MainActivity, "app", null, 1)
 
+        learnWordDb.AddWord("word", "Слово")
+        if (learnWordDb.ChangeIsUsed(1)){
+            println("Change OK")
+        } else println("Change Error")
 
         binding.layoutAnswer3.setOnClickListener{
 //            if(binding.wrongLayout.isVisible){
@@ -61,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         if (isCorrect){
             color = ContextCompat.getColor(this, R.color.green)
             resultIconResource = R.drawable.ic_correct
-            messageText = "Correct!" // TODO get from string resoutces
+            messageText = "Correct!"
         } else {
             color = ContextCompat.getColor(this, R.color.red)
             resultIconResource = R.drawable.ic_wrong
