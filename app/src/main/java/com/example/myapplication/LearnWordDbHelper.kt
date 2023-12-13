@@ -52,21 +52,30 @@ class LearnWordDbHelper(val context: Context, val name: String, val factory: Cur
             "son", "сон",
             "engl", "ингл",
         )
-        val values = ContentValues()
-        val count = 0
-        var updatedRows: Long
         val db = this.writableDatabase
-        for (word in arrWord) {
-            if (count % 2 == 0) {
-                values.put("word", word)
-            } else {
-                values.put("translate", word)
+        val values = ContentValues()
+
+        try {
+            db.beginTransaction()
+
+            for (i in arrWord.indices step 2) {
+                values.clear()
+
+                values.put("word", arrWord[i])
+                values.put("translate", arrWord[i + 1])
+                values.put("isUsed", 0)
+
+                val updatedRows = db.insert("wordsTable", null, values)
+                println(updatedRows)
             }
-            values.put("isUsed", 0)
-            updatedRows = db.insert("wordsTable", null, values)
-            println(updatedRows)
+
+            db.setTransactionSuccessful()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            db.endTransaction()
+            db.close()
         }
-        db.close()
 
     }
 
@@ -84,6 +93,37 @@ class LearnWordDbHelper(val context: Context, val name: String, val factory: Cur
 
         return updatedRows > 0
     }
+
+    data class WordData(val id: Int, val word: String, val translate: String, val isUsed: Int)
+
+    fun getWordData(idWord: Int): WordData? {
+        val db = readableDatabase
+        val query = "SELECT * FROM wordsTable WHERE id = $idWord"
+        val cursor = db.rawQuery(query, null)
+
+        var result: WordData? = null
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val idIndex = it.getColumnIndex("id")
+                val wordIndex = it.getColumnIndex("word")
+                val translateIndex = it.getColumnIndex("translate")
+                val isUsedIndex = it.getColumnIndex("isUsed")
+
+                val idValue = it.getInt(idIndex)
+                val wordValue = it.getString(wordIndex)
+                val translateValue = it.getString(translateIndex)
+                val isUsedValue = it.getInt(isUsedIndex)
+
+                result = WordData(idValue, wordValue, translateValue, isUsedValue)
+            }
+        }
+
+        cursor?.close()
+        db.close()
+
+        return result
+    }
+
 
 }
 
