@@ -8,11 +8,11 @@ import com.example.myapplication.databinding.ActivityMainBinding
 
 class MarkAnswer(val context: Context) {
 
-    fun markAnswerNetral(
-        layoutAnswer: LinearLayout,
-        tvVariantNumber: TextView,
-        tvVariantValue: TextView
-    ) {
+    class LayoutAnswer(val layout: LinearLayout, val tvVariantNumber: TextView, val tvVariantValue: TextView)
+    fun markAnswerNetral(Layout: LayoutAnswer) {
+        val layoutAnswer = Layout.layout
+        val tvVariantNumber = Layout.tvVariantNumber
+        val tvVariantValue = Layout.tvVariantValue
 
 
         layoutAnswer.background = ContextCompat.getDrawable(
@@ -47,11 +47,11 @@ class MarkAnswer(val context: Context) {
     }
 
 
-    fun markAnswerWrong(
-        layoutAnswer: LinearLayout,
-        tvVariantNumber: TextView,
-        tvVariantValue: TextView
-    ) {
+    fun markAnswerWrong(Layout: LayoutAnswer) {
+        val layoutAnswer = Layout.layout
+        val tvVariantNumber = Layout.tvVariantNumber
+        val tvVariantValue = Layout.tvVariantValue
+
         layoutAnswer.background = ContextCompat.getDrawable(
             context, R.drawable.shape_raunded_container_wrong
         )
@@ -75,11 +75,11 @@ class MarkAnswer(val context: Context) {
 
     }
 
-    fun markAnswerCorrect(
-        layoutAnswer: LinearLayout,
-        tvVariantNumber: TextView,
-        tvVariantValue: TextView
-    ) {
+    fun markAnswerCorrect(Layout: LayoutAnswer) {
+        val layoutAnswer = Layout.layout
+        val tvVariantNumber = Layout.tvVariantNumber
+        val tvVariantValue = Layout.tvVariantValue
+
         layoutAnswer.background = ContextCompat.getDrawable(
             context, R.drawable.shape_raunded_container_correct
         )

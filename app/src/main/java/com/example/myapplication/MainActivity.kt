@@ -2,6 +2,8 @@ package com.example.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -11,13 +13,23 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     val markAnswer: MarkAnswer = MarkAnswer(this@MainActivity)
+
+    private lateinit var first: MarkAnswer.LayoutAnswer
+    private lateinit var second: MarkAnswer.LayoutAnswer
+    private lateinit var third: MarkAnswer.LayoutAnswer
+    private lateinit var fourth: MarkAnswer.LayoutAnswer
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        first = MarkAnswer.LayoutAnswer(binding.layoutAnswer1, binding.tvVariantNumber1, binding.tvVariantValue1)
+        second = MarkAnswer.LayoutAnswer(binding.layoutAnswer2, binding.tvVariantNumber2, binding.tvVariantValue2)
+        third = MarkAnswer.LayoutAnswer(binding.layoutAnswer3, binding.tvVariantNumber3, binding.tvVariantValue3)
+        fourth = MarkAnswer.LayoutAnswer(binding.layoutAnswer4, binding.tvVariantNumber4, binding.tvVariantValue4)
 
-        val learnWordDbHelper: LearnWordDbHelper =
-            LearnWordDbHelper(this@MainActivity, "app", null, 1)
+        val learnWordDbHelper: LearnWordDbHelper = LearnWordDbHelper(this@MainActivity, "app", null, 1)
 
 
 
@@ -26,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         val count = learnWordDbHelper.getWordCount()
         println("$count !!!!!!!!!!!!!!!")
 
-        // Рандомное слово и расположение его перевода в рандомном месте
+    // Рандомное слово и расположение его перевода в рандомном месте
 
         // Выбираем рандомный ID для элемента
         val randWordData = (1..10).random()
@@ -37,11 +49,9 @@ class MainActivity : AppCompatActivity() {
         val isUsed = firstWord?.isUsed ?: Int
         // Если = 0, то не использовался
         if (isUsed.equals(0)) {
-
             val words = firstWord?.word
             val translate = firstWord?.translate
             binding.tvQuestionWord.text = words
-
 
             val randTranslate = (1..4).random()
             when (randTranslate) {
@@ -69,46 +79,27 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonContinue.setOnClickListener {
 
-            markAnswer.markAnswerNetral(
-                binding.layoutAnswer1,
-                binding.tvVariantNumber1,
-                binding.tvVariantValue1
-            )
+            markAnswer.markAnswerNetral(first)
 
-            markAnswer.markAnswerNetral(
-                binding.layoutAnswer2,
-                binding.tvVariantNumber2,
-                binding.tvVariantValue2
-            )
+            markAnswer.markAnswerNetral(second)
 
-            markAnswer.markAnswerNetral(
-                binding.layoutAnswer3,
-                binding.tvVariantNumber3,
-                binding.tvVariantValue3
-            )
+            markAnswer.markAnswerNetral(third)
 
-            markAnswer.markAnswerNetral(
-                binding.layoutAnswer4,
-                binding.tvVariantNumber4,
-                binding.tvVariantValue4
-            )
+            markAnswer.markAnswerNetral(fourth)
 
             binding.resultLayout.isVisible = false
         }
+
     }
 
-    // TODO 1
+
     fun FirstVariantCorrect() {
 
         binding.layoutAnswer1.setOnClickListener {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer1,
-                    binding.tvVariantNumber1,
-                    binding.tvVariantValue1
-                )
+                markAnswer.markAnswerCorrect(first)
 //            }
                 showResultMessage(true)
             }
@@ -120,17 +111,9 @@ class MainActivity : AppCompatActivity() {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerWrong(
-                    binding.layoutAnswer1,
-                    binding.tvVariantNumber2,
-                    binding.tvVariantValue2
-                )
+                markAnswer.markAnswerWrong(second)
 
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer1,
-                    binding.tvVariantNumber1,
-                    binding.tvVariantValue1
-                )
+                markAnswer.markAnswerCorrect(first)
 //            }
                 showResultMessage(false)
             }
@@ -140,17 +123,9 @@ class MainActivity : AppCompatActivity() {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerWrong(
-                    binding.layoutAnswer1,
-                    binding.tvVariantNumber3,
-                    binding.tvVariantValue3
-                )
+                markAnswer.markAnswerWrong(third)
 
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer1,
-                    binding.tvVariantNumber1,
-                    binding.tvVariantValue1
-                )
+                markAnswer.markAnswerCorrect(first)
 //            }
                 showResultMessage(false)
             }
@@ -160,17 +135,9 @@ class MainActivity : AppCompatActivity() {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerWrong(
-                    binding.layoutAnswer4,
-                    binding.tvVariantNumber4,
-                    binding.tvVariantValue4
-                )
+                markAnswer.markAnswerWrong(fourth)
 
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer1,
-                    binding.tvVariantNumber1,
-                    binding.tvVariantValue1
-                )
+                markAnswer.markAnswerCorrect(first)
 //            }
                 showResultMessage(false)
             }
@@ -178,24 +145,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    // TODO 2
+
     fun SecondVariantCorrect() {
 
         binding.layoutAnswer1.setOnClickListener {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerWrong(
-                    binding.layoutAnswer1,
-                    binding.tvVariantNumber1,
-                    binding.tvVariantValue1
-                )
+                markAnswer.markAnswerWrong(first )
 
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer2,
-                    binding.tvVariantNumber2,
-                    binding.tvVariantValue2
-                )
+                markAnswer.markAnswerCorrect(second)
 //            }
                 showResultMessage(false)
             }
@@ -207,11 +166,7 @@ class MainActivity : AppCompatActivity() {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer2,
-                    binding.tvVariantNumber2,
-                    binding.tvVariantValue2
-                )
+                markAnswer.markAnswerCorrect(second)
 //            }
                 showResultMessage(true)
             }
@@ -221,17 +176,9 @@ class MainActivity : AppCompatActivity() {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerWrong(
-                    binding.layoutAnswer1,
-                    binding.tvVariantNumber3,
-                    binding.tvVariantValue3
-                )
+                markAnswer.markAnswerWrong(third)
 
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer2,
-                    binding.tvVariantNumber2,
-                    binding.tvVariantValue2
-                )
+                markAnswer.markAnswerCorrect(second)
 //            }
                 showResultMessage(false)
             }
@@ -241,17 +188,9 @@ class MainActivity : AppCompatActivity() {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerWrong(
-                    binding.layoutAnswer4,
-                    binding.tvVariantNumber4,
-                    binding.tvVariantValue4
-                )
+                markAnswer.markAnswerWrong(fourth)
 
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer2,
-                    binding.tvVariantNumber2,
-                    binding.tvVariantValue2
-                )
+                markAnswer.markAnswerCorrect(second)
 //            }
                 showResultMessage(false)
             }
@@ -259,24 +198,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    // TODO 3
+
     fun ThirdVariantCorrect() {
 
         binding.layoutAnswer1.setOnClickListener {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerWrong(
-                    binding.layoutAnswer1,
-                    binding.tvVariantNumber1,
-                    binding.tvVariantValue1
-                )
+                markAnswer.markAnswerWrong(first)
 
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer3,
-                    binding.tvVariantNumber3,
-                    binding.tvVariantValue3
-                )
+                markAnswer.markAnswerCorrect(third)
 //            }
                 showResultMessage(false)
             }
@@ -288,17 +219,9 @@ class MainActivity : AppCompatActivity() {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerWrong(
-                    binding.layoutAnswer2,
-                    binding.tvVariantNumber2,
-                    binding.tvVariantValue2
-                )
+                markAnswer.markAnswerWrong(second)
 
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer3,
-                    binding.tvVariantNumber3,
-                    binding.tvVariantValue3
-                )
+                markAnswer.markAnswerCorrect(third)
 //            }
                 showResultMessage(false)
             }
@@ -308,11 +231,7 @@ class MainActivity : AppCompatActivity() {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer3,
-                    binding.tvVariantNumber3,
-                    binding.tvVariantValue3
-                )
+                markAnswer.markAnswerCorrect(third )
 //            }
                 showResultMessage(true)
             }
@@ -322,17 +241,9 @@ class MainActivity : AppCompatActivity() {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerWrong(
-                    binding.layoutAnswer4,
-                    binding.tvVariantNumber4,
-                    binding.tvVariantValue4
-                )
+                markAnswer.markAnswerWrong(fourth)
 
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer3,
-                    binding.tvVariantNumber3,
-                    binding.tvVariantValue3
-                )
+                markAnswer.markAnswerCorrect(third)
 //            }
                 showResultMessage(false)
             }
@@ -340,24 +251,16 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    // TODO 4
+
     fun FourthVariantCorrect() {
 
         binding.layoutAnswer1.setOnClickListener {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerWrong(
-                    binding.layoutAnswer1,
-                    binding.tvVariantNumber1,
-                    binding.tvVariantValue1
-                )
+                markAnswer.markAnswerWrong(first)
 
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer1,
-                    binding.tvVariantNumber1,
-                    binding.tvVariantValue1
-                )
+                markAnswer.markAnswerCorrect(fourth)
 //            }
                 showResultMessage(false)
             }
@@ -369,17 +272,9 @@ class MainActivity : AppCompatActivity() {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerWrong(
-                    binding.layoutAnswer2,
-                    binding.tvVariantNumber2,
-                    binding.tvVariantValue2
-                )
+                markAnswer.markAnswerWrong(second)
 
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer4,
-                    binding.tvVariantNumber4,
-                    binding.tvVariantValue4
-                )
+                markAnswer.markAnswerCorrect(fourth)
 //            }
                 showResultMessage(false)
             }
@@ -389,17 +284,9 @@ class MainActivity : AppCompatActivity() {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerWrong(
-                    binding.layoutAnswer2,
-                    binding.tvVariantNumber3,
-                    binding.tvVariantValue3
-                )
+                markAnswer.markAnswerWrong(third)
 
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer4,
-                    binding.tvVariantNumber4,
-                    binding.tvVariantValue4
-                )
+                markAnswer.markAnswerCorrect(fourth)
 //            }
                 showResultMessage(false)
             }
@@ -410,11 +297,7 @@ class MainActivity : AppCompatActivity() {
             if (binding.resultLayout.isVisible) {
                 Toast.makeText(this, "reply accepted", Toast.LENGTH_SHORT).show()
             } else {
-                markAnswer.markAnswerCorrect(
-                    binding.layoutAnswer4,
-                    binding.tvVariantNumber4,
-                    binding.tvVariantValue4
-                )
+                markAnswer.markAnswerCorrect(fourth)
 //            }
                 showResultMessage(true)
             }
