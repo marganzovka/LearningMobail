@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     val markAnswer: MarkAnswer = MarkAnswer(this@MainActivity)
+    val learnWordDbHelper: LearnWordDbHelper = LearnWordDbHelper(this@MainActivity, "app", null, 1)
 
     private lateinit var first: MarkAnswer.LayoutAnswer
     private lateinit var second: MarkAnswer.LayoutAnswer
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         third = MarkAnswer.LayoutAnswer(binding.layoutAnswer3, binding.tvVariantNumber3, binding.tvVariantValue3)
         fourth = MarkAnswer.LayoutAnswer(binding.layoutAnswer4, binding.tvVariantNumber4, binding.tvVariantValue4)
 
-        val learnWordDbHelper: LearnWordDbHelper = LearnWordDbHelper(this@MainActivity, "app", null, 1)
+
 
 
 
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         // Получаем этот элемент
         val firstWord = learnWordDbHelper.getWordData(randWordData)
         // Получаем значение использовался ли он
-        val isUsed = firstWord?.isUsed ?: Int
+        var isUsed = firstWord?.isUsed ?: Int
         // Если = 0, то не использовался
         if (isUsed.equals(0)) {
             val words = firstWord?.word
@@ -54,28 +55,206 @@ class MainActivity : AppCompatActivity() {
             binding.tvQuestionWord.text = words
 
             val randTranslate = (1..4).random()
+
             when (randTranslate) {
                 1 -> {
                     binding.tvVariantValue1.text = translate
                     FirstVariantCorrect()
+                    learnWordDbHelper.ChangeIsUsed(randTranslate)
+
+                    do {
+                        val randTranslateFirst = (1..4).random()
+                        val secondWord = learnWordDbHelper.getWordData(randTranslateFirst)
+                        var usedWord = true
+                        if (secondWord?.isUsed?.equals(0)!!){
+                            val translate = secondWord.translate
+                            binding.tvVariantValue2.text = translate
+                            learnWordDbHelper.ChangeIsUsed(randTranslateFirst)
+                            usedWord = false
+                        }
+                        else println("Копия")
+                    }while (usedWord)
+
+                    do {
+                        val randTranslateSecond = (1..4).random()
+                        val thirdWord = learnWordDbHelper.getWordData(randTranslateSecond)
+                        var usedWord = true
+                        if (thirdWord?.isUsed?.equals(0)!!){
+                            val translate = thirdWord.translate
+                            binding.tvVariantValue3.text = translate
+                            learnWordDbHelper.ChangeIsUsed(randTranslateSecond)
+                            usedWord = false
+
+                        }
+                        else println("Копия")
+                    }while (usedWord)
+
+
+                    do {
+                        val randTranslateThird = (1..4).random()
+                        val fourthWord = learnWordDbHelper.getWordData(randTranslateThird)
+                        var usedWord = true
+                        if (fourthWord?.isUsed?.equals(0)!!){
+                            val translate = fourthWord.translate
+                            binding.tvVariantValue4.text = translate
+                            learnWordDbHelper.ChangeIsUsed(randTranslateThird)
+                            usedWord = false
+                        }
+                        else println("Копия")
+                    }while (usedWord)
+
+
                 }
 
                 2 -> {
                     binding.tvVariantValue2.text = translate
                     SecondVariantCorrect()
+                    learnWordDbHelper.ChangeIsUsed(randTranslate)
+                    do {
+                        val randTranslateFirst = (1..4).random()
+                        val secondWord = learnWordDbHelper.getWordData(randTranslateFirst)
+                        var usedWord = true
+                        if (secondWord?.isUsed?.equals(0)!!){
+                            val translate = secondWord.translate
+                            binding.tvVariantValue1.text = translate
+                            learnWordDbHelper.ChangeIsUsed(randTranslateFirst)
+                            usedWord = false
+                        }
+                        else println("Копия")
+                    }while (usedWord)
+
+                    do {
+                        val randTranslateSecond = (1..4).random()
+                        val thirdWord = learnWordDbHelper.getWordData(randTranslateSecond)
+                        var usedWord = true
+                        if (thirdWord?.isUsed?.equals(0)!!){
+                            val translate = thirdWord.translate
+                            binding.tvVariantValue3.text = translate
+                            learnWordDbHelper.ChangeIsUsed(randTranslateSecond)
+                            usedWord = false
+
+                        }
+                        else println("Копия")
+                    }while (usedWord)
+
+
+                    do {
+                        val randTranslateThird = (1..4).random()
+                        val fourthWord = learnWordDbHelper.getWordData(randTranslateThird)
+                        var usedWord = true
+                        if (fourthWord?.isUsed?.equals(0)!!){
+                            val translate = fourthWord.translate
+                            binding.tvVariantValue4.text = translate
+                            learnWordDbHelper.ChangeIsUsed(randTranslateThird)
+                            usedWord = false
+
+                        }
+                        else println("Копия")
+                    }while (usedWord)
+
                 }
 
                 3 -> {
                     binding.tvVariantValue3.text = translate
                     ThirdVariantCorrect()
+                    learnWordDbHelper.ChangeIsUsed(randTranslate)
+
+                    do {
+                        val randTranslateFirst = (1..4).random()
+                        val secondWord = learnWordDbHelper.getWordData(randTranslateFirst)
+                        var usedWord = true
+                        if (secondWord?.isUsed?.equals(0)!!){
+                            val translate = secondWord.translate
+                            binding.tvVariantValue1.text = translate
+                            learnWordDbHelper.ChangeIsUsed(randTranslateFirst)
+                            usedWord = false
+                        }
+                        else println("Копия")
+                    }while (usedWord)
+
+
+                    do {
+                        val randTranslateSecond = (1..4).random()
+                        val thirdWord = learnWordDbHelper.getWordData(randTranslateSecond)
+                        var usedWord = true
+                        if (thirdWord?.isUsed?.equals(0)!!){
+                            val translate = thirdWord.translate
+                            binding.tvVariantValue2.text = translate
+                            learnWordDbHelper.ChangeIsUsed(randTranslateSecond)
+                            usedWord = false
+
+                        }
+                        else println("Копия")
+                    }while (usedWord)
+
+
+                    do {
+                        val randTranslateThird = (1..4).random()
+                        val fourthWord = learnWordDbHelper.getWordData(randTranslateThird)
+                        var usedWord = true
+                        if (fourthWord?.isUsed?.equals(0)!!){
+                            val translate = fourthWord.translate
+                            binding.tvVariantValue4.text = translate
+                            learnWordDbHelper.ChangeIsUsed(randTranslateThird)
+                            usedWord = false
+
+                        }
+                        else println("Копия")
+                    }while (usedWord)
+
                 }
 
                 4 -> {
                     binding.tvVariantValue4.text = translate
                     FourthVariantCorrect()
+                    learnWordDbHelper.ChangeIsUsed(randTranslate)
+
+                    do {
+                        val randTranslateFirst = (1..4).random()
+                        val secondWord = learnWordDbHelper.getWordData(randTranslateFirst)
+                        var usedWord = true
+                        if (secondWord?.isUsed?.equals(0)!!){
+                            val translate = secondWord.translate
+                            binding.tvVariantValue1.text = translate
+                            learnWordDbHelper.ChangeIsUsed(randTranslateFirst)
+                            usedWord = false
+                        }
+                        else println("Копия")
+                    }while (usedWord)
+
+
+                    do {
+                        val randTranslateSecond = (1..4).random()
+                        val thirdWord = learnWordDbHelper.getWordData(randTranslateSecond)
+                        var usedWord = true
+                        if (thirdWord?.isUsed?.equals(0)!!){
+                            val translate = thirdWord.translate
+                            binding.tvVariantValue2.text = translate
+                            learnWordDbHelper.ChangeIsUsed(randTranslateSecond)
+                            usedWord = false
+
+                        }
+                        else println("Копия")
+                    }while (usedWord)
+
+                    do {
+                        val randTranslateThird = (1..4).random()
+                        val fourthWord = learnWordDbHelper.getWordData(randTranslateThird)
+                        var usedWord = true
+                        if (fourthWord?.isUsed?.equals(0)!!){
+                            val translate = fourthWord.translate
+                            binding.tvVariantValue3.text = translate
+                            learnWordDbHelper.ChangeIsUsed(randTranslateThird)
+                            usedWord = false
+
+                        }
+                        else println("Копия")
+                    }while (usedWord)
+
                 }
             }
         }
+
 
         binding.buttonContinue.setOnClickListener {
 
@@ -92,6 +271,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //TODO
+    fun SetTextTranslate(variant: TextView){
+        do {
+            val randTranslateThird = (1..4).random()
+            val fourthWord = learnWordDbHelper.getWordData(randTranslateThird)
+            var usedWord = true
+            if (fourthWord?.isUsed?.equals(0)!!){
+                val translate = fourthWord.translate
+                variant.text = translate
+                learnWordDbHelper.ChangeIsUsed(randTranslateThird)
+                usedWord = false
+
+            }
+            else println("Копия")
+        }while (usedWord)
+    }
 
     fun FirstVariantCorrect() {
 

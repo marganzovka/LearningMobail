@@ -79,7 +79,7 @@ class LearnWordDbHelper(val context: Context, val name: String, val factory: Cur
 
     }
 
-    fun ChangeIsUsed(idWord: Long): Boolean {
+    fun ChangeIsUsed(idWord: Int): Boolean {
         val db = writableDatabase
         val values = ContentValues().apply {
             put("isUsed", 1)
