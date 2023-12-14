@@ -27,10 +27,13 @@ class MainActivity : AppCompatActivity() {
         var third = MarkAnswer.LayoutAnswer(binding.layoutAnswer3, binding.tvVariantNumber3, binding.tvVariantValue3)
         var fourth = MarkAnswer.LayoutAnswer(binding.layoutAnswer4, binding.tvVariantNumber4, binding.tvVariantValue4)
 
+        var count: Int
+        count = learnWordDbHelper.getWordCount()
         //Добавление слов в бд
-        learnWordDbHelper.AddWords()
+        if (count == 0){
+        learnWordDbHelper.AddWords()}
         // Подсчет слов
-        val count = learnWordDbHelper.getWordCount() //TODO
+        count = learnWordDbHelper.getWordCount() //TODO
         println("$count !!!!!!!!!!!!!!!")
 
     // Рандомное слово и расположение его перевода в рандомном месте
@@ -47,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             // Получение слова и перевода из объекта
             val words = firstWord?.word
             val translate = firstWord?.translate
+            val id = firstWord?.id
             // Вставка выбранного слова в title приложения
             binding.tvQuestionWord.text = words
 
@@ -62,45 +66,83 @@ class MainActivity : AppCompatActivity() {
                     // передаются в том же порядке, что и ссылки(кнопки))
                     VariantCorrect(binding.layoutAnswer1, binding.layoutAnswer2, binding.layoutAnswer3, binding.layoutAnswer4, first, second, third, fourth)
                     //Изменения значения в бд "использовалось ли это слово ранее"
-                    learnWordDbHelper.ChangeIsUsed(randTranslate)
+                    learnWordDbHelper.ChangeIsUsed(id)
 
                     // Метод выбирающий по еще одному рандомному слову
-                    SetTextTranslate(binding.tvVariantValue2)
-                    SetTextTranslate(binding.tvVariantValue3)
-                    SetTextTranslate(binding.tvVariantValue4)
+                    val translateFirst = SetTextTranslate(binding.tvVariantValue2)
+                    var translateSecond : String
+                    // Цикл не дающий взять одинаковые слова
+                    do {
+                        translateSecond = SetTextTranslate(binding.tvVariantValue3)
+                        println("Второе слово")
+                    }while (translateSecond == translateFirst)
+                    do {
+                        println("Третье слово")
+                        val translateThird = SetTextTranslate(binding.tvVariantValue4)
+                    }while (translateSecond == translateThird || translateFirst == translateThird)
 
                 }
 
                 2 -> {
                     binding.tvVariantValue2.text = translate
                     VariantCorrect(binding.layoutAnswer2, binding.layoutAnswer1, binding.layoutAnswer3, binding.layoutAnswer4, second, first, third, fourth)
-                    learnWordDbHelper.ChangeIsUsed(randTranslate)
+                    learnWordDbHelper.ChangeIsUsed(id)
 
-                    SetTextTranslate(binding.tvVariantValue1)
-                    SetTextTranslate(binding.tvVariantValue3)
-                    SetTextTranslate(binding.tvVariantValue4)
+                    val translateFirst = SetTextTranslate(binding.tvVariantValue1)
+                    var translateSecond : String
+                    do {
+                        println("Второе слово")
+
+                        translateSecond = SetTextTranslate(binding.tvVariantValue3)
+                    }while (translateSecond == translateFirst)
+                    do {
+                        println("Третье слово")
+
+                        val translateThird = SetTextTranslate(binding.tvVariantValue4)
+                    }while (translateSecond == translateThird || translateFirst == translateThird)
+
 
                 }
 
                 3 -> {
                     binding.tvVariantValue3.text = translate
                     VariantCorrect(binding.layoutAnswer3, binding.layoutAnswer1, binding.layoutAnswer2, binding.layoutAnswer4, third, first, second, fourth)
-                    learnWordDbHelper.ChangeIsUsed(randTranslate)
+                    learnWordDbHelper.ChangeIsUsed(id)
 
-                    SetTextTranslate(binding.tvVariantValue1)
-                    SetTextTranslate(binding.tvVariantValue2)
-                    SetTextTranslate(binding.tvVariantValue4)
+                    val translateFirst = SetTextTranslate(binding.tvVariantValue1)
+                    var translateSecond : String
+                    do {
+                        println("Второе слово")
+
+                        translateSecond = SetTextTranslate(binding.tvVariantValue2)
+                    }while (translateSecond == translateFirst)
+                    do {
+                        println("Третье слово")
+
+                        val translateThird = SetTextTranslate(binding.tvVariantValue4)
+                    }while (translateThird == translateFirst || translateThird == translateSecond)
+
 
                 }
 
                 4 -> {
                     binding.tvVariantValue4.text = translate
                     VariantCorrect(binding.layoutAnswer4, binding.layoutAnswer1, binding.layoutAnswer1, binding.layoutAnswer3, fourth, first, second, third)
-                    learnWordDbHelper.ChangeIsUsed(randTranslate)
+                    learnWordDbHelper.ChangeIsUsed(id)
 
-                    SetTextTranslate(binding.tvVariantValue1)
-                    SetTextTranslate(binding.tvVariantValue2)
-                    SetTextTranslate(binding.tvVariantValue3)
+                    val translateFirst = SetTextTranslate(binding.tvVariantValue1)
+                    var translateSecond : String
+                    do {
+                        println("Второе слово")
+
+                        translateSecond = SetTextTranslate(binding.tvVariantValue2)
+                    }while (translateSecond == translateFirst)
+                    do {
+                        println("Третье слово")
+
+                        val translateThird = SetTextTranslate(binding.tvVariantValue3)
+                    }while (translateSecond == translateThird || translateFirst == translateThird)
+
 
                 }
             }
@@ -119,22 +161,30 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun SetTextTranslate(variant: TextView){
+    // Метод выбирающий рандомное слово с бд, и проверяющий, использовалось ли оно ранее и возращающий его перевод
+    fun SetTextTranslate(variant: TextView): String{
+
         do {
-            val randTranslateThird = (1..4).random()
+            val randTranslateThird = (1..10).random()
             val fourthWord = learnWordDbHelper.getWordData(randTranslateThird)
+            var translate: String
+
             var usedWord = true
             if (fourthWord?.isUsed?.equals(0)!!){
-                val translate = fourthWord.translate
+                translate = fourthWord.translate
                 variant.text = translate
-                learnWordDbHelper.ChangeIsUsed(randTranslateThird)
                 usedWord = false
+                return translate
 
-            }
-            else println("Копия")
+            }else translate = "Copy"
+
+            return translate
+
         }while (usedWord)
+
     }
 
+    // Метод отображающий визуальную часть при выборе ответа
     fun VariantCorrect(layoutCorrect: LinearLayout, layoutFirstWord: LinearLayout, layoutSecondWord: LinearLayout, layoutThirdWord: LinearLayout,
                        first: MarkAnswer.LayoutAnswer, second: MarkAnswer.LayoutAnswer, third: MarkAnswer.LayoutAnswer, fourth: MarkAnswer.LayoutAnswer ) {
 
@@ -181,7 +231,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
+// Метод отображающий результат в зависимости от того, правильный ли вариант выбрал пользователь
     private fun showResultMessage(isCorrect: Boolean) {
         val color: Int
         val messageText: String

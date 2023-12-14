@@ -9,27 +9,19 @@ import android.database.sqlite.SQLiteOpenHelper
 class LearnWordDbHelper(val context: Context, val name: String, val factory: CursorFactory?, val version: Int) :
     SQLiteOpenHelper(context, "app", factory, 1) {
 
+    // Создание бд
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("CREATE TABLE IF NOT EXISTS wordsTable (id INTEGER PRIMARY KEY, word TEXT, translate TEXT, isUsed INTEGER)")
     }
 
+    // Обновление бд
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE wordsTable")
         onCreate(db)
     }
 
-//    fun AddWord(nameWord: String, translateWord: String) {
-//        val values = ContentValues()
-//        values.put("word", nameWord)
-//        values.put("translate", translateWord)
-//        values.put("isUsed", 0)
-//
-//
-//        val db = this.writableDatabase
-//        db.insert("wordsTable", null, values)
-//        db.close()
-//    }
 
+    // Метод возвращающий количество слов в бд
     fun getWordCount(): Int {
         val db = this.readableDatabase
         val countQuery = "SELECT * FROM wordsTable"
@@ -39,6 +31,7 @@ class LearnWordDbHelper(val context: Context, val name: String, val factory: Cur
         return count
     }
 
+    // Метод добавляющий слова с переводом в бд
     fun AddWords() {
         val arrWord = arrayOf(
             "word", "слово",
@@ -79,7 +72,8 @@ class LearnWordDbHelper(val context: Context, val name: String, val factory: Cur
 
     }
 
-    fun ChangeIsUsed(idWord: Int): Boolean {
+    // Метод, меняющий значение "использовалось ли слово ранее" на true
+    fun ChangeIsUsed(idWord: Int?): Boolean {
         val db = writableDatabase
         val values = ContentValues().apply {
             put("isUsed", 1)
@@ -94,8 +88,10 @@ class LearnWordDbHelper(val context: Context, val name: String, val factory: Cur
         return updatedRows > 0
     }
 
+    // Класс состоящий из одного элемента бд
     data class WordData(val id: Int, val word: String, val translate: String, val isUsed: Int)
 
+    // Метод, возращающий объект в котором доступны все поля элемента из бд
     fun getWordData(idWord: Int): WordData? {
         val db = readableDatabase
         val query = "SELECT * FROM wordsTable WHERE id = $idWord"
