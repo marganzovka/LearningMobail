@@ -8,4 +8,6 @@
     <string name="wrong_answer">Wrong!</string>
     <string name="retryButton">RETRY</string>
     <string name="start">START</string>
+    <string name="restart">RESTART</string>
+    <string name="word_learning">Word Learning</string>
 </resources>

@@ -15,12 +15,15 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="168dp"
         android:fontFamily="@font/nunito_bold"
-        android:text="Word Learning"
+        android:text="@string/word_learning"
         android:textSize="40sp"
+        android:layout_marginTop="150dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonStart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAlignment="center"/>
 
     <Button
         android:id="@+id/buttonStart"
@@ -29,12 +32,31 @@
         android:layout_marginBottom="240dp"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/nunito_bold"
+        android:textColor="@color/white"
         android:text="@string/start"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <Button
+        android:id="@+id/buttonRestart"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="240dp"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/nunito_bold"
+        android:textColor="@color/white"
+        android:text="@string/restart"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        />
 
     <ImageButton
         android:id="@+id/ibClose"

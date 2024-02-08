@@ -31,19 +31,48 @@ class LearnWordDbHelper(val context: Context, val name: String, val factory: Cur
         return count
     }
 
+    fun getWordNotLearnedCount(): Int {
+        val db = this.readableDatabase
+        val countQuery = "SELECT * FROM wordsTable WHERE isUsed = 0"
+        val cursor = db.rawQuery(countQuery, null)
+        val count = cursor.count
+        cursor.close()
+        return count
+    }
+
     // Метод добавляющий слова с переводом в бд
     fun AddWords() {
         val arrWord = arrayOf(
-            "word", "слово",
-            "world", "мир",
-            "apple", "яблоко",
-            "time", "время",
-            "clock", "часы",
-            "lime", "лайм",
-            "cola", "кола",
-            "klava", "клава",
-            "son", "сон",
-            "engl", "ингл",
+            "Code", "Код",
+            "Programming", "Программирование",
+            "Software",  "Программное обеспечение",
+            "Debugging", "Отладка",
+            "Algorithm", "Алгоритм",
+            "Function", "Функция",
+            "Variable",  "Переменная",
+            "Loop", "Цикл",
+            "Database", "База данных",
+            "Framework", "Фреймворк",
+            "Version Control", "Система контроля версий",
+            "Repository", "Репозиторий",
+            "Git", "Гит",
+            "API",  "Интерфейс программирования приложений",
+            "Scripting", "Сценарный язык программирования",
+            "Debug", "Отладка",
+            "IDE",  "Интегрированная среда разработки",
+            "Compiler", "Компилятор",
+            "Syntax",  "Синтаксис",
+            "Class",  "Класс",
+            "Object", "Объект",
+            "Interface", "Интерфейс",
+            "Bug", "Баг, ошибка",
+            "Deployment", "Развертывание",
+            "Agile", "Гибкий метод разработки",
+            "Framework", "Фреймворк",
+            "Front-end", "Разработка интерфейса",
+            "Back-end", "Разработка серверной части",
+            "Code Review", "Проверка кода",
+            "Documentation", "Документация"
         )
         val db = this.writableDatabase
         val values = ContentValues()
@@ -71,6 +100,19 @@ class LearnWordDbHelper(val context: Context, val name: String, val factory: Cur
         }
 
     }
+
+    fun RestartIsUsed() {
+        val db = this.writableDatabase
+        val values = ContentValues().apply {
+            put("isUsed", 0)
+        }
+
+        val updatedRows = db.update("wordsTable", values, null, null)
+        db.close()
+
+        println("Updated rows: $updatedRows")
+    }
+
 
     // Метод, меняющий значение "использовалось ли слово ранее" на true
     fun ChangeIsUsed(idWord: Int?): Boolean {
